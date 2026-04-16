@@ -10,6 +10,7 @@ lo maximo posible.
 para comenzar con una documentacion formal (redaccion antes de programar)
 el objetivo actual es la redaccion de logica de programacion de funciones y llamado a la funcion
 suma, resta, division, multiplicacion. no se tomara en cuenta el problema de punto flotante (por el momento)
+--
 
 tengo un problema respecto a la division,no la puedo implementar de momento de forma compleja, sin embargo se puede ingresar una cantidad de digitos en la lista que se dividira por 2
 mi solucion es que si se pide una division se solicite el numero divisor tras la eleccion.
