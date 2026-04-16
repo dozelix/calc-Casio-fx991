@@ -44,7 +44,25 @@ while True:
 
 print(f"El resultado de la {operation} es: {result}")
     
+while True:
+    again = input("¿Desea realizar otra operación? (sí/no): ").lower().strip()
+    if again == "sí":
+        numeros.clear()
+        break
+    elif again == "no":
+        print("¡Gracias por usar la calculadora! ¡Hasta luego!")
+        exit()
+    else:
+        print("Respuesta no válida. Por favor, ingrese 'sí' o 'no'.")
 
-    
+while True:
+    num = input("Ingrese un número u operador (o 'salir' para terminar): ").lower()
+    if num.isdigit():
+        numeros.append(float(num))
+    elif num == "salir":
+        break
+    elif not num.strip() or num.isalpha():
+        print("La respuesta no puede estar en blanco o contener letras. Por favor, ingrese un número válido.")
+
     
 
