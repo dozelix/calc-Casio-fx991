@@ -23,3 +23,12 @@ realmente no se como solucionar lo de la division, considero que la solucion sea
 15-16/04/2026 escrito a las 00:07
 
 
+cuarto caso, considere que primero deberia ir la eleccion de operador, luego se deberian insertar los numeros, con ello el usuario sabe de primera instancia lo que hara y como insertar los datos, ademas de que si escoge division la implementacion de solicitud del dividendo sería en teoria mas facil de realizar.
+
+todas estas opciones las pondria en un analisis de requisitos, con ia claramente o con un ser humano de confianza pensante. 00.22 16/04/2026
+
+quinto caso, diseñar la clase calculadora con las funciones como metodos (esto mas a futuro)
+
+sexto caso; todos estos problemas se me reducirian si simplemente opto por un diseño grafico, honestamente si tengo una GUI es claro que se seguiria mas o menos un string o var que se iria modificando con cada boton pulsado o numero insertado.
+
+
