@@ -1,62 +1,97 @@
-from functools import reduce
 import math
-numeros = []
 
+# Implementación con pila LIFO (stack)
+stack = []
 
-def suma(numeros):
-    return math.fsum(numeros)
+def push(value):
+    stack.append(value)
 
-def resta(numeros):
-    return reduce(lambda x, y: x - y, numeros)
+def pop_value():
+    if not stack:
+        raise IndexError("Pila vacía")
+    return stack.pop()
 
-def multiplicacion(numeros):
-    return math.prod(numeros)
+def do_binary(op):
+    try:
+        b = pop_value()
+        a = pop_value()
+    except IndexError:
+        print("Error: no hay suficientes operandos en la pila.")
+        return
 
-def division(numeros,divisor):
-    return [x / divisor for x in numeros]
-
-operaciones = {
-    "suma": suma,
-    "resta": resta,
-    "multiplicacion": multiplicacion,
-    "division": division
-}
-
-while True:
-    while True:
-        num = input(("Ingrese un número u operador (o 'salir' para terminar): ")).lower()
-        if num.isdigit():
-            numeros.append(float(num))
-        elif num == "salir":
-            break
-        elif not num.strip() or num.isalpha():
-            print("La respuesta no puede estar en blanco o contener letras. Por favor, ingrese un número válido.")
-
-    while True:
-        operation = input("Ingrese la operación que desea realizar (suma, resta, multiplicacion, division): ").lower().strip()
-        if operation in operaciones:
-            try:
-                result = operaciones[operation](numeros)
-            except ZeroDivisionError:
-                result = None
-                print("Error: División por cero no permitida.")
-            except Exception as e:
-                result = None
-                print(f"Error al realizar la operación: {e}")
+    try:
+        if op in ('+', 'suma'):
+            res = a + b
+        elif op in ('-', 'resta'):
+            res = a - b
+        elif op in ('*', 'multiplicacion'):
+            res = a * b
+        elif op in ('/', 'division'):
+            if b == 0:
+                print("Error: división por cero no permitida.")
+                # devolver operandos a la pila en su orden original
+                push(a)
+                push(b)
+                return
+            res = a / b
         else:
-            print(f"Operación '{operation}' no válida.")
-            result = None
+            print(f"Operación '{op}' no reconocida.")
+            push(a)
+            push(b)
+            return
+    except Exception as e:
+        print(f"Error al realizar la operación: {e}")
+        push(a)
+        push(b)
+        return
 
-            
-        break
-    print(f"El resultado de la {operation} es: {result}")
+    push(res)
+    print(f"Resultado: {res}. Pila actual: {stack}")
 
-    again = input("¿Desea realizar otra operación? (s/n): ").lower().strip()
-    if again == "s":
-        numeros.clear()
-        continue
-    elif again == "n":
-        print("¡Gracias por usar la calculadora! ¡Hasta luego!")
-        exit()
-    else:
-        print("Respuesta no válida. Por favor, ingrese 's(sí)' o 'n(no)'.")
+
+def show_help():
+    print("""
+Modo de uso (LIFO stack):
+- Ingresar números (ej: 3, 4.2) para apilarlos.
+- Ingresar operador (+, -, *, /) o palabras (suma, resta, multiplicacion, division) para aplicar la operación a los dos últimos elementos de la pila.
+- Comandos: 'pila' para mostrar la pila, 'limpiar' para vaciarla, 'ayuda' para este mensaje, 'salir' para terminar.
+""")
+
+
+def main():
+    print("Calculadora usando pila LIFO (RPN-like). Escriba 'ayuda' para más información.")
+    show_help()
+
+    while True:
+        entrada = input("Entrada: ").strip().lower()
+        if not entrada:
+            continue
+
+        if entrada == 'salir':
+            print("¡Gracias por usar la calculadora! Hasta luego.")
+            break
+        elif entrada in ('pila', 'stack'):
+            print(f"Pila: {stack}")
+            continue
+        elif entrada in ('limpiar', 'clear'):
+            stack.clear()
+            print("Pila vaciada.")
+            continue
+        elif entrada in ('ayuda', 'help'):
+            show_help()
+            continue
+        elif entrada in ('+', '-', '*', '/', 'suma', 'resta', 'multiplicacion', 'division'):
+            do_binary(entrada)
+            continue
+
+        # intentar convertir a número
+        try:
+            numero = float(entrada)
+            push(numero)
+            print(f"Número apilado. Pila: {stack}")
+        except ValueError:
+            print("Entrada inválida. Escriba 'ayuda' para información de uso.")
+
+
+if __name__ == '__main__':
+    main()
